@@ -29,6 +29,7 @@
   "scripts": {
     "build": "node-gyp rebuild",
     "bench": "node bench.js",
+    "bench:jitless": "node --jitless bench.js",
     "bench:smoke": "REPEAT=3 ITERATIONS=200000 WARMUP=20000 node bench.js",
     "test": "npm run build && npm run bench:smoke",
     "clean": "node-gyp clean"

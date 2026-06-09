@@ -41,6 +41,12 @@ Useful knobs:
 REPEAT=11 ITERATIONS=5000000 WARMUP=250000 npm run bench
 ```
 
+To approximate an iOS-style no-JIT runtime in local Node/V8, run with V8 JIT disabled:
+
+```sh
+REPEAT=9 ITERATIONS=5000000 WARMUP=250000 npm run bench:jitless
+```
+
 The `*.cachedMethod` cases bind/read the method once before the timed loop. The uncached cases call `obj.method(...)` inside the loop and therefore include property lookup, plus the proxy `get` trap for the proxy path.
 
 For a quick sanity check:
@@ -52,4 +58,3 @@ npm test
 ## Current Takeaway
 
 The isolated benchmark shows Node-API callback overhead is already about `3x-4x` over direct V8 for these tiny calls. The pass-through proxy adds overhead when method lookup happens in the timed loop, but mostly disappears when the method is cached before timing. See `RESULTS.md` for numbers.
-
