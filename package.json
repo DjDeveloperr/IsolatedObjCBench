@@ -1,0 +1,39 @@
+{
+  "name": "isolated-objc-bench",
+  "version": "0.0.1",
+  "description": "Minimal Objective-C object benchmark for direct V8 vs Node-API wrappers.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DjDeveloperr/IsolatedObjCBench.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DjDeveloperr/IsolatedObjCBench/issues"
+  },
+  "homepage": "https://github.com/DjDeveloperr/IsolatedObjCBench#readme",
+  "keywords": [
+    "benchmark",
+    "node-api",
+    "n-api",
+    "v8",
+    "objective-c",
+    "objc",
+    "native-addon"
+  ],
+  "os": [
+    "darwin"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "bench": "node bench.js",
+    "bench:smoke": "REPEAT=3 ITERATIONS=200000 WARMUP=20000 node bench.js",
+    "test": "npm run build && npm run bench:smoke",
+    "clean": "node-gyp clean"
+  },
+  "devDependencies": {
+    "node-gyp": "^12.4.0"
+  }
+}
