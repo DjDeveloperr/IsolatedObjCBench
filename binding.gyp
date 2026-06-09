@@ -53,6 +53,24 @@
           "-Wl,-rpath,@loader_path"
         ]
       }
+    },
+    {
+      "target_name": "napi_hostobject",
+      "sources": [
+        "src/napi_hostobject_addon.mm"
+      ],
+      "dependencies": [
+        "testobject"
+      ],
+      "xcode_settings": {
+        "CLANG_CXX_LANGUAGE_STANDARD": "c++20",
+        "CLANG_ENABLE_OBJC_ARC": "NO",
+        "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+        "GCC_ENABLE_CPP_RTTI": "YES",
+        "OTHER_LDFLAGS": [
+          "-Wl,-rpath,@loader_path"
+        ]
+      }
     }
   ]
 }

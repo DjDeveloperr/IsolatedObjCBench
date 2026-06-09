@@ -2,6 +2,7 @@
 
 const { TestObject: V8DirectTestObject } = require("./build/Release/direct.node");
 const { TestObject: NapiTestObject } = require("./build/Release/napi.node");
+const { TestObject: NapiHostObjectTestObject } = require("./build/Release/napi_hostobject.node");
 
 const repeat = Number(process.env.REPEAT || 9);
 const iterations = Number(process.env.ITERATIONS || 2_000_000);
@@ -94,6 +95,7 @@ function callCachedOneOff(method, iterationCount) {
 
 const direct = new V8DirectTestObject();
 const napi = new NapiTestObject();
+const napiHostObject = new NapiHostObjectTestObject();
 const napiProxy = makeCachedPassThroughProxy(new NapiTestObject());
 
 const cases = [
@@ -116,6 +118,12 @@ const cases = [
     fn: (count) => callOneOff(napi, count),
   },
   {
+    name: "node-api-hostobject.oneOff",
+    path: "node-api-hostobject",
+    method: "oneOff",
+    fn: (count) => callOneOff(napiHostObject, count),
+  },
+  {
     name: "node-api-proxy.oneOff",
     path: "node-api-proxy",
     method: "oneOff",
@@ -132,6 +140,12 @@ const cases = [
     path: "node-api",
     method: "add",
     fn: (count) => callAdd(napi, count),
+  },
+  {
+    name: "node-api-hostobject.add",
+    path: "node-api-hostobject",
+    method: "add",
+    fn: (count) => callAdd(napiHostObject, count),
   },
   {
     name: "node-api-proxy.add",
@@ -152,6 +166,12 @@ const cases = [
     fn: (count) => callCachedOneOff(napi.oneOff.bind(napi), count),
   },
   {
+    name: "node-api-hostobject.oneOff.cachedMethod",
+    path: "node-api-hostobject",
+    method: "oneOff.cached",
+    fn: (count) => callCachedOneOff(napiHostObject.oneOff.bind(napiHostObject), count),
+  },
+  {
     name: "node-api-proxy.oneOff.cachedMethod",
     path: "node-api-proxy",
     method: "oneOff.cached",
@@ -168,6 +188,12 @@ const cases = [
     path: "node-api",
     method: "add.cached",
     fn: (count) => callCached(napi.add.bind(napi), count),
+  },
+  {
+    name: "node-api-hostobject.add.cachedMethod",
+    path: "node-api-hostobject",
+    method: "add.cached",
+    fn: (count) => callCached(napiHostObject.add.bind(napiHostObject), count),
   },
   {
     name: "node-api-proxy.add.cachedMethod",
@@ -249,4 +275,3 @@ function main() {
 }
 
 main();
-
